@@ -47,6 +47,13 @@ const loginController = async (req, res) => {
       });
     }
 
+    if (existingUser.role !== req.body.role) {
+      return res.status(500).send({
+        success: false,
+        message: "role dosent match",
+      });
+    }
+
     // Compare password
     const comparePassword = await bcrypt.compare(
       req.body.password,
@@ -84,4 +91,40 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { registerController, loginController };
+// const currentUserController = async (req,res) => {
+//   try {
+//     const user = await userModel.findOne({ _id: req.body.userId });
+//     return res.status(200).send({
+//       success: true,
+//       message: "User Feteched Successfully",
+//       user,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send({
+//       status: false,
+//       message: "Unable to get current user",
+//       err,
+//     });
+//   }
+// };
+
+const currentUserController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    return res.status(200).send({
+      success: true,
+      message: "User Fetched Successfully",
+      user,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      success: false,
+      message: "Unable to get current user",
+      error: err.message,
+    });
+  }
+};
+
+module.exports = { registerController, loginController, currentUserController };
