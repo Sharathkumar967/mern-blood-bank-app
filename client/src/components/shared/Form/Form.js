@@ -28,7 +28,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
     e.preventDefault();
     // Do something with the form data, e.g., submit it to a backend API
     if (formType === "login")
-      return handleLogin(e, formData.email, formData.password);
+      return handleLogin(e, formData.email, formData.password, formData.role);
     else if (formType === "register")
       return handleRegister(
         e,
@@ -42,6 +42,18 @@ const Form = ({ formType, submitBtn, formTitle }) => {
         formData.organizationName,
         formData.phone
       );
+    // Reset the form data after form submission
+    setFormData({
+      email: "",
+      password: "",
+      role: "donar",
+      name: "",
+      organizationName: "",
+      hospitalName: "",
+      website: "",
+      address: "",
+      phone: "",
+    });
   };
 
   return (
