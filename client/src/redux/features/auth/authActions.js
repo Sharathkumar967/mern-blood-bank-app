@@ -14,7 +14,7 @@ export const userLogin = createAsyncThunk(
     };
     try {
       const response = await API.post("/auth/login", data);
-      console.log("response", response);
+
       if (response.data.success === true) {
         localStorage.setItem("token", response.data.token);
         toast.success(response.data.message);
@@ -22,7 +22,7 @@ export const userLogin = createAsyncThunk(
           window.location.replace("/");
         }, 2000);
       }
-      return response;
+      return response.data;
     } catch (err) {
       if (err.response && err.response.data.message) {
         toast.error(err.response.data.message);
@@ -36,7 +36,6 @@ export const userLogin = createAsyncThunk(
 );
 
 // register
-
 export const userRegister = createAsyncThunk(
   "auth/register",
   async (
@@ -65,14 +64,16 @@ export const userRegister = createAsyncThunk(
         organizationName,
         phone,
       });
-      console.log("response testing", response);
       if (response?.data?.success) {
-        toast.success("User Registered Succesfully");
+        toast.success(response.data.message);
         setTimeout(() => {
           window.location.replace("/login");
         }, 1000);
+      } else {
+        alert(response.data.message);
       }
     } catch (err) {
+      alert(err.response.data.message);
       if (err.response && err.response.data.message) {
         return rejectWithValue(err.response.data.message);
       } else {

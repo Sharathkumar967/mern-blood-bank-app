@@ -11,8 +11,8 @@ const ProtectedRoute = ({ children }) => {
   const getUser = async () => {
     try {
       const response = await API.get("/auth/current-user");
-      if (response?.success) {
-        dispatch(getCurrentUser(response));
+      if (response?.data?.success) {
+        dispatch(getCurrentUser(response.data));
       }
     } catch (err) {
       localStorage.clear();
@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
 
   if (localStorage.getItem("token")) {
     return children; // User is authenticated, render the protected content

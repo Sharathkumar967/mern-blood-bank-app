@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import InputType from "./InputType";
 import { Link } from "react-router-dom";
 import { handleLogin, handleRegister } from "../../../services/authService";
+//
+import {
+  handleLoginSaga,
+  handleRegisterSaga,
+} from "../../../services/authService";
 
 const Form = ({ formType, submitBtn, formTitle }) => {
   const [formData, setFormData] = useState({
@@ -42,6 +47,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
         formData.organizationName,
         formData.phone
       );
+
     // Reset the form data after form submission
     setFormData({
       email: "",

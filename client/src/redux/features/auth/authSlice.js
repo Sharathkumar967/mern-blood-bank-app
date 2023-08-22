@@ -24,8 +24,8 @@ const authSlice = createSlice({
     });
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.user = payload.user;
-      state.token = payload.token;
+      state.user = payload;
+      state.token = payload;
     });
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;
@@ -39,7 +39,7 @@ const authSlice = createSlice({
     });
     builder.addCase(userRegister.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.user = payload?.user;
+      state.user = payload;
       // state.success = true;
     });
     builder.addCase(userRegister.rejected, (state, { payload }) => {
@@ -53,10 +53,14 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(getCurrentUser.fulfilled, (state, { payload }) => {
+      console.log("Fulfilled payload", payload); // Log the payload
       state.loading = false;
-      state.user = payload?.user;
+      // state.user = payload?.user;
+      state.user = payload;
+
       // state.success = true;
     });
+
     builder.addCase(getCurrentUser.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;

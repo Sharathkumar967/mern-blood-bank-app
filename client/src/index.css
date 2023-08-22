@@ -44,3 +44,16 @@
     transform: rotate(360deg);
   }
 }
+
+/* //////////////////////////////// */
+
+.navbar {
+  background: black !important;
+  color: white !important;
+}
+
+.nav-link,
+.navbar-brand {
+  background: black !important;
+  color: white !important;
+}
