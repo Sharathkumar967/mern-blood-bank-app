@@ -101,19 +101,19 @@ const createInventoryContoller = async (req, res) => {
   }
 };
 
+// get All Blood Records
 const getInventoryController = async (req, res) => {
   try {
     const inventory = await inventoryModel
-      .find({
-        organization: req.body.userId,
-      })
+      .find({ organization: req.body.userId })
       .populate("donar")
       .populate("hospital")
+
       .sort({ createdAt: -1 });
 
     return res.status(200).send({
       success: true,
-      message: "get all records successfully",
+      message: "get  all records successfully",
       inventory,
     });
   } catch (err) {
@@ -121,6 +121,55 @@ const getInventoryController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in Get All Inventory Api",
+      err,
+    });
+  }
+};
+
+// get hospital blood Records
+const getInventoryHospitalController = async (req, res) => {
+  try {
+    const inventory = await inventoryModel
+      .find(req.body.filters)
+      .populate("donar")
+      .populate("hospital")
+      .populate("organization")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).send({
+      success: true,
+      message: "get hopital consumer records successfully",
+      inventory,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      success: false,
+      message: "Error in Get consumer Inventory Api",
+      err,
+    });
+  }
+};
+
+// get Blood Record of 3
+const getRecentInventoryController = async (req, res) => {
+  try {
+    const inventory = await inventoryModel
+      .find({
+        organization: req.body.userId,
+      })
+      .limit(3)
+      .sort({ createdAt: -1 });
+    return res.status(200).send({
+      success: true,
+      message: "recent Inventory Data",
+      inventory,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      success: false,
+      message: "Error In Recent Inventory API",
       err,
     });
   }
@@ -202,10 +251,39 @@ const getOrganizationController = async (req, res) => {
     });
   }
 };
+
+// get organization for Hospital
+const getOrganizationForHospitalController = async (req, res) => {
+  try {
+    const hospital = req.body.UserId;
+
+    const orgId = await inventoryModel.distinct("organization", { hospital });
+
+    // find Organization\
+    const organizations = await userModel.find({
+      _id: { $in: orgId },
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Hospital Organization Data Fetched Successfully",
+      organizations,
+    });
+  } catch (err) {
+    console.log(err);
+    return response.status(500).send({
+      success: false,
+      message: "Error in Hospital Organization Api",
+    });
+  }
+};
 module.exports = {
   createInventoryContoller,
   getInventoryController,
   getDonarsController,
   getHospitalsController,
   getOrganizationController,
+  getOrganizationForHospitalController,
+  getInventoryHospitalController,
+  getRecentInventoryController,
 };

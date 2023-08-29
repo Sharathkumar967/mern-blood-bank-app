@@ -10,12 +10,55 @@ import PublicRoute from "./components/Routes/PublicRoute";
 import Donar from "./pages/Dashboard/Donar";
 import Hospitals from "./pages/Dashboard/Hospitals";
 import Organization from "./pages/Dashboard/Organization";
+import Consumer from "./pages/Dashboard/Consumer";
+import Donation from "./pages/Donation";
+import Analytics from "./pages/Dashboard/Analytics";
+import DonarList from "./pages/Admin/DonarList";
+import HospitalList from "./pages/Admin/HospitalList";
+import OrgList from "./pages/Admin/OrgList";
+import AdminHome from "./pages/Admin/AdminHome";
 
 const App = () => {
   return (
     <div>
       <ToastContainer />
       <Routes>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminHome />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/donar-list"
+          element={
+            <ProtectedRoute>
+              <DonarList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/hospital-list"
+          element={
+            <ProtectedRoute>
+              <HospitalList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/org-list"
+          element={
+            <ProtectedRoute>
+              <OrgList />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/organization"
           element={
@@ -30,6 +73,33 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Hospitals />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <Analytics />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/consumer"
+          element={
+            <ProtectedRoute>
+              <Consumer />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/donation"
+          element={
+            <ProtectedRoute>
+              <Donation />
             </ProtectedRoute>
           }
         />

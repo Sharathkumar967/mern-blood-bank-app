@@ -5,11 +5,14 @@ import Modal from "../components/shared/modal/Modal";
 import { useSelector } from "react-redux";
 import API from "../services/API";
 import moment from "moment-timezone";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const { loading, error, user } = useSelector((state) => state.auth);
 
   const [data, setData] = useState([]);
+
+  const navigate = useNavigate();
 
   const getBloodRecords = async () => {
     try {
@@ -29,6 +32,7 @@ const HomePage = () => {
 
   return (
     <Layout user={user}>
+      {user?.user?.role === "admin" && navigate("/admin")}
       {error && <span>{alert(error)}</span>}
       {loading ? (
         <Spinner />
