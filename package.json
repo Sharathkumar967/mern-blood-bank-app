@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node-dev server.js",
-    "build": "echo 'No build required'",
+    "build": "webpack --config webpack.config.js",
     "prestart": "npm rebuild bcrypt",
     "client": "npm start --prefix ./client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
