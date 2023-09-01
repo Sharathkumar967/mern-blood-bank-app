@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
           return true;
         }
         return false;
-      },
+    },
     },
     organizationName: {
       type: String,

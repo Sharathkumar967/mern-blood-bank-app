@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         success: false,
         message: "Auth Failed: Invalid token",
       });
-    }
+    } 
 
     const token = authHeader.split(" ")[1].trim();
 
