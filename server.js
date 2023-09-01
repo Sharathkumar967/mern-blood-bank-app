@@ -4,7 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
-const path = require("path");
+// const path = require("path");
+
 dotenv.config();
 
 // mongodb connection
@@ -26,13 +27,13 @@ app.use("/api/v1/analytics", require("./routes/analyticsRoutes"));
 
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 
-// static folders
-app.use(express.static(path.join(__dirname, "./client/build")));
+// // static folders
+// app.use(express.static(path.join(__dirname, "./client/build")));
 
-// static routes
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// // static routes
+// app.get("*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 const PORT = process.env.PORT || 8080;
 
